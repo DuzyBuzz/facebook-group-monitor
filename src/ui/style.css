@@ -232,12 +232,10 @@ body {
       box-shadow: 0 0 16px #00ffc399;
     }
 
-    /* Hide scrollbar by default (Firefox) */
     body {
       scrollbar-width: none;
     }
 
-    /* Hide scrollbar by default (Webkit browsers) */
     body::-webkit-scrollbar {
       width: 10px;
       background: transparent;
@@ -245,7 +243,6 @@ body {
       transition: opacity 0.4s;
     }
 
-    /* Show scrollbar on scroll or hover (Webkit browsers) */
     body:hover::-webkit-scrollbar,
     body:active::-webkit-scrollbar,
     body:focus::-webkit-scrollbar {
@@ -253,7 +250,6 @@ body {
       background: #232b3a;
     }
 
-    /* Style the thumb */
     body::-webkit-scrollbar-thumb {
       background: #00ffc3;
       border-radius: 8px;
@@ -261,7 +257,6 @@ body {
       transition: opacity 0.4s;
     }
 
-    /* Show thumb on scroll or hover */
     body:hover::-webkit-scrollbar-thumb,
     body:active::-webkit-scrollbar-thumb,
     body:focus::-webkit-scrollbar-thumb {
@@ -290,7 +285,6 @@ body {
       margin-bottom: 0;
     }
 
-    /* Make all three buttons the same width and height */
     #startBtn, #showOutputBtn, #showScreenshotsBtn {
       width: 160px;
       padding: 10px 0;
@@ -298,7 +292,6 @@ body {
       margin-bottom: 0;
     }
 
-    /* Sky blue for Screenshots Folder */
     #showScreenshotsBtn {
       background: linear-gradient(90deg, #7ed6fc 0%, #48a9ee 100%);
       color: #fff;

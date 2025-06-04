@@ -21,7 +21,6 @@ linksBox.addEventListener('input', updateLineNumbers);
 updateLineNumbers();
 
 startBtn.onclick = () => {
-  // Do NOT skip the first line; include all lines
   const links = linksBox.value
     .split('\n')
     .map(l => l.trim())
@@ -32,12 +31,11 @@ startBtn.onclick = () => {
     alert('Please enter links and a file name.');
     return;
   }
-  // Disable inputs during scraping
   linksBox.disabled = true;
   fileNameBox.disabled = true;
   startBtn.disabled = true;
   startBtn.textContent = 'Scraping...';
-  spinner.style.display = 'flex'; // Show spinner
+  spinner.style.display = 'flex'; 
 
   progressDiv.textContent = 'Starting...\n';
   ipcRenderer.invoke('start-scrape', { links, inputFileName });
@@ -49,7 +47,7 @@ ipcRenderer.on('progress-update', (event, msg) => {
                       msg.startsWith('❌') ? 'error' :
                       msg.startsWith('Done') ? 'done' : 'info');
 
-  // Progress Bar Logic
+
   const match = msg.match(/Processing (\d+)\/(\d+)/);
   if (match) {
     const current = parseInt(match[1], 10);
@@ -66,7 +64,7 @@ ipcRenderer.on('progress-update', (event, msg) => {
 function appendProgress(msg, type = 'info') {
   const span = document.createElement('span');
   span.className = type;
-  span.innerText = msg + '\n'; // Use innerText for plain text, or innerHTML if you want to support HTML
+  span.innerText = msg + '\n'; 
   progressDiv.appendChild(span);
   progressDiv.scrollTop = progressDiv.scrollHeight;
 }
@@ -75,20 +73,16 @@ let beeping = false;
 let beepInterval = null;
 
 ipcRenderer.on('scrape-done', (event, outputPath) => {
-  spinner.style.display = 'none'; // Hide spinner
+  spinner.style.display = 'none'; 
 
-  // Show a modern success notification
   appendProgress('All pages processed successfully.', 'success');
   appendProgress(`Output file: ${outputPath}`, 'success');
   progressBar.style.width = '100%';
 
-  // Optionally, show a browser alert as well
   alert('All pages processed successfully!\n\nOutput file:\n' + outputPath);
 
-  // Open the folder containing the output file
   ipcRenderer.invoke('open-output-folder', outputPath);
 
-  // Re-enable inputs after scraping
   linksBox.disabled = false;
   fileNameBox.disabled = false;
   startBtn.textContent = 'Start';
@@ -96,9 +90,8 @@ ipcRenderer.on('scrape-done', (event, outputPath) => {
 });
 
 ipcRenderer.on('scrape-error', (event, err) => {
-  spinner.style.display = 'none'; // Hide spinner on error
+  spinner.style.display = 'none'; 
   alert('Error: ' + err);
-  // Re-enable inputs if error occurs
   linksBox.disabled = false;
   fileNameBox.disabled = false;
   startBtn.textContent = 'Start';
@@ -106,13 +99,11 @@ ipcRenderer.on('scrape-error', (event, err) => {
 });
 
 showOutputBtn.onclick = () => {
-  // Open the output folder in the Downloads directory
   const outputFolder = require('path').join(require('os').homedir(), 'Downloads', 'output');
   ipcRenderer.invoke('open-output-folder', outputFolder);
 };
 
 showScreenshotsBtn.onclick = () => {
-  // Open the screenshots folder in the Downloads directory
   const screenshotsFolder = require('path').join(require('os').homedir(), 'Downloads', 'screenshots');
   ipcRenderer.invoke('open-output-folder', screenshotsFolder);
 };

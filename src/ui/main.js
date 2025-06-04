@@ -1,8 +1,8 @@
 const { app, BrowserWindow, ipcMain, shell } = require('electron');
 const path = require('path');
 
-// Import the compiled JS version of your scraper
-const { runScraper } = require('../../dist/index.js'); // Make sure src/index.ts is compiled to src/index.js
+
+const { runScraper } = require('../../dist/index.js'); 
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -24,7 +24,7 @@ ipcMain.handle('start-scrape', async (event, { links, inputFileName }) => {
     const result = await runScraper(links, inputFileName, (progress) => {
       event.sender.send('progress-update', progress);
     });
-    event.sender.send('scrape-done', result.outputPath); // Send output path
+    event.sender.send('scrape-done', result.outputPath);
   } catch (err) {
     event.sender.send('scrape-error', err.message);
   }
