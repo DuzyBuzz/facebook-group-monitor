@@ -91,7 +91,6 @@ ipcRenderer.on('scrape-done', (event, outputPath) => {
 
 ipcRenderer.on('scrape-error', (event, err) => {
   spinner.style.display = 'none'; 
-  alert('Error: ' + err);
   linksBox.disabled = false;
   fileNameBox.disabled = false;
   startBtn.textContent = 'Start';

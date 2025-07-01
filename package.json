@@ -16,7 +16,7 @@
     "dev": "npx ts-node src/index.ts",
     "build": "tsc && electron-builder",
     "start": "concurrently \"npm run dev\" \"electron ./src/ui/main.js\"",
-    "package-win": "electron-packager . FacebookGroupCheck --platform=win32 --arch=x64 --icon=crawling.ico --out=release-build --overwrite",
+    "package-win": "electron-packager . Facebook-Group-Check --platform=win32 --arch=x64 --icon=crawling.ico --out=release-build --overwrite",
     "package-mac": "electron-packager . FacebookGroupCheck --platform=darwin --arch=arm64 --icon=crawling.icns --out=release-build --overwrite"
 
   },
