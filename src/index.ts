@@ -274,15 +274,19 @@ try {
   const postElements = await page.$$(postsSelector);
   const first20Posts = postElements.slice(1, 22);
 
-  const safeFolderName = url.replace(/https?:\/\//, '').replace(/[\/:?&=]+/g, '_');
+ const safeFolderName = url.replace(/https?:\/\//, '').replace(/[\/:?&=]+/g, '_');
+
   const screenshotDir = path.join('screenshots', safeFolderName);
-  fs.mkdirSync(screenshotDir, { recursive: true });
+  const downloadsFolder = path.join(os.homedir(), 'Downloads', screenshotDir);
+  fs.mkdirSync(downloadsFolder, { recursive: true });
 
 for (let i = 1; i < first20Posts.length; i++) {  // Start from second post (index 1)
   const post = first20Posts[i];
   const adjustedIndex = i; // post 2 becomes Post 1, post 3 becomes Post 2, etc.
 
-  const screenshotPath = path.join(screenshotDir, `post_${adjustedIndex}.png`);
+  // Use group name or a safe identifier to avoid overwriting files from different groups
+  const safeGroupName = groupName.replace(/[\/\\?%*:|"<>]/g, '_') || 'group';
+  const screenshotPath = path.join(downloadsFolder, `${safeGroupName}_post_${adjustedIndex}.png`);
   await post.screenshot({ path: screenshotPath });
 
   const { reactionCount, commentCount, postDate } = await post.evaluate(postEl => {
