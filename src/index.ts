@@ -273,10 +273,20 @@ try {
 
   const postElements = await page.$$(postsSelector);
   const first20Posts = postElements.slice(1, 22);
-
-  const safeFolderName = url.replace(/https?:\/\//, '').replace(/[\/:?&=]+/g, '_');
-  const screenshotDir = path.join('screenshots', safeFolderName);
-  fs.mkdirSync(screenshotDir, { recursive: true });
+  const now = new Date();
+  const timestamp = now.toLocaleString('en-US', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: true,
+  }).replace(/[/,: ]+/g, '-');
+const downloadsFolder = path.join(os.homedir(), 'Downloads');
+const safeFolderName = url.replace(/https?:\/\//, '').replace(/[\/:?&=]+/g, '_');
+const screenshotDir = path.join(downloadsFolder, 'screenshots/', timestamp, safeFolderName);
+fs.mkdirSync(screenshotDir, { recursive: true });
 
 for (let i = 1; i < first20Posts.length; i++) {  // Start from second post (index 1)
   const post = first20Posts[i];
